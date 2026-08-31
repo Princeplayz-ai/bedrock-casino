@@ -1,17 +1,31 @@
-// Simple deploy script for Mumbai testnet. Fill .env with PRIVATE_KEY and MUMBAI_RPC
+// Deploy script updated to deploy DiceGameV2
 require('dotenv').config();
 const hre = require('hardhat');
 
 async function main() {
-  const Dice = await hre.ethers.getContractFactory('DiceGame');
-  // Replace these with your VRF coordinator, keyHash and subscriptionId for Mumbai
+  const Dice = await hre.ethers.getContractFactory('DiceGameV2');
   const vrfCoordinator = process.env.VRF_COORDINATOR || "0x";
   const keyHash = process.env.KEY_HASH || "0x";
   const subscriptionId = process.env.SUBSCRIPTION_ID ? Number(process.env.SUBSCRIPTION_ID) : 0;
 
   const dice = await Dice.deploy(vrfCoordinator, keyHash, subscriptionId);
   await dice.deployed();
-  console.log('DiceGame deployed to:', dice.address);
+  console.log('DiceGameV2 deployed to:', dice.address);
+
+  // Optional: configure tokens via env var (JSON string). Example:
+  // TOKEN_CONFIG='[{"address":"0x...","min":1000000,"max":1000000000,"decimals":6}]'
+  if (process.env.TOKEN_CONFIG) {
+    try {
+      const cfg = JSON.parse(process.env.TOKEN_CONFIG);
+      for (const t of cfg) {
+        const tx = await dice.configureToken(t.address, true, t.min, t.max, t.decimals);
+        await tx.wait();
+        console.log('Configured token', t.address);
+      }
+    } catch (e) {
+      console.error('Failed to parse TOKEN_CONFIG', e);
+    }
+  }
 }
 
 main().catch((error) => {
