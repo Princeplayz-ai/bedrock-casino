@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Safes</title>
+  <style>
+    body{font-family:Arial, Helvetica, sans-serif;padding:24px}
+    table{width:100%;border-collapse:collapse}
+    th,td{border:1px solid #ddd;padding:8px}
+    .actions button{margin-right:8px}
+  </style>
+</head>
+<body>
+  <h2>Admin — Treasury Safes</h2>
+  <div>
+    <label>API Base: <input id="apiBase" value="http://localhost:4000" style="width:300px" /></label>
+    <button id="refresh">Refresh</button>
+    <button id="addSafe">Add Safe</button>
+  </div>
+  <table>
+    <thead><tr><th>Name</th><th>Address</th><th>Network</th><th>Status</th><th>Last Verified</th><th>Actions</th></tr></thead>
+    <tbody id="list"></tbody>
+  </table>
+
+  <div id="modal" style="display:none;border:1px solid #ccc;padding:12px;margin-top:12px">
+    <h3>Add Safe</h3>
+    <div><label>Name: <input id="safeName" /></label></div>
+    <div><label>Address: <input id="safeAddress" /></label></div>
+    <div><label>Network: <input id="safeNetwork" value="polygon" /></label></div>
+    <div><label>Notes: <input id="safeNotes" /></label></div>
+    <div><label>Default: <input id="safeDefault" type="checkbox" /></label></div>
+    <div><button id="saveSafe">Save</button> <button id="cancelSafe">Cancel</button></div>
+  </div>
+
+  <h3>Audit logs</h3>
+  <button id="refreshLogs">Refresh Logs</button>
+  <ul id="logs"></ul>
+
+  <script src="admin/safes.js"></script>
+</body>
+</html>
