@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Withdrawals</title>
+  <style>
+    body{font-family:Arial, Helvetica, sans-serif;padding:24px}
+    table{width:100%;border-collapse:collapse}
+    th,td{border:1px solid #ddd;padding:8px}
+    .actions button{margin-right:8px}
+  </style>
+</head>
+<body>
+  <h2>Admin — Withdrawals</h2>
+  <div>
+    <label>API Base: <input id="apiBase" value="http://localhost:4000" style="width:300px" /></label>
+    <button id="refresh">Refresh</button>
+  </div>
+  <table>
+    <thead><tr><th>User</th><th>To</th><th>Amount</th><th>Token</th><th>Status</th><th>Safe</th><th>Prepared Tx</th><th>Actions</th></tr></thead>
+    <tbody id="list"></tbody>
+  </table>
+
+  <h3>Create withdrawal (dev)</h3>
+  <div>
+    <label>User ID: <input id="userId" /></label>
+    <label>To address: <input id="toAddr" /></label>
+    <label>Amount: <input id="amount" /></label>
+    <label>Token: <input id="token" value="native" /></label>
+    <button id="create">Create Withdrawal</button>
+  </div>
+
+  <script src="admin/withdrawals.js"></script>
+</body>
+</html>
